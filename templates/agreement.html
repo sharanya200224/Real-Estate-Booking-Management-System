@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid py-5 bg-light">
+
+    <div class="container">
+
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+            <div class="bg-primary text-white text-center p-4">
+
+                <h1 class="fw-bold">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    Property Agreement Form
+                </h1>
+
+                <p class="mb-0">
+                    Fill all details carefully before creating the agreement
+                </p>
+
+            </div>
+
+            <div class="card-body p-5">
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="bg-primary bg-opacity-10 p-3 rounded-3 mb-4">
+
+                        <h3 class="text-primary">
+                            <i class="bi bi-person-fill"></i>
+                            First Party Details (Owner)
+                        </h3>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Owner Name
+                            </label>
+
+                            <input type="text"
+                                   name="owner_name"
+                                   value="{{ form_detail.owner_name }}"
+                                   class="form-control form-control-lg"
+                                   readonly>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Property Name
+                            </label>
+
+                            <input type="text"
+                                   name="property_name"
+                                   class="form-control form-control-lg"
+                                   placeholder="Enter Property Name"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Owner Phone
+                            </label>
+
+                            <input type="number"
+                                   name="owner_phone"
+                                   class="form-control form-control-lg"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Owner Email
+                            </label>
+
+                            <input type="email"
+                                   name="owner_email"
+                                   class="form-control form-control-lg"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Property Price
+                            </label>
+
+                            <input type="number"
+                                   name="property_price"
+                                   class="form-control form-control-lg"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Stamp Paper Size
+                            </label>
+
+                            <select name="stamp_paper"
+                                    class="form-select form-select-lg"
+                                    required>
+
+                                <option value="">Select Stamp Paper</option>
+                                <option value="20">₹20</option>
+                                <option value="50">₹50</option>
+                                <option value="100">₹100</option>
+                                <option value="200">₹200</option>
+                                <option value="300">₹300</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Owner Address
+                            </label>
+
+                            <textarea name="owner_address"
+                                      rows="3"
+                                      class="form-control"
+                                      required></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bg-success bg-opacity-10 p-3 rounded-3 mt-5 mb-4">
+
+                        <h3 class="text-success">
+                            <i class="bi bi-person-badge-fill"></i>
+                            Second Party Details (Tenant / Buyer)
+                        </h3>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Second Party Name
+                            </label>
+
+                            <input type="text"
+                                   name="second_party_name"
+                                   class="form-control form-control-lg"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Phone Number
+                            </label>
+
+                            <input type="number"
+                                   name="second_party_phone"
+                                   class="form-control form-control-lg"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Email Address
+                            </label>
+
+                            <input type="email"
+                                   name="second_party_email"
+                                   class="form-control form-control-lg"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Advance Paid
+                            </label>
+
+                            <input type="number"
+                                   name="advance_paid"
+                                   class="form-control form-control-lg"
+                                   required>
+
+                        </div>
+
+                        <div class="col-md-12 mb-4">
+
+                            <label class="form-label fw-bold">
+                                Address
+                            </label>
+
+                            <textarea name="second_party_address"
+                                      rows="3"
+                                      class="form-control"
+                                      required></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="text-center mt-5">
+
+                        <button type="submit"
+                            class="btn btn-success btn-lg px-5 py-3 rounded-pill shadow">
+
+                            <i class="bi bi-file-earmark-check-fill"></i>
+                                Create Agreement
+
+                        </button>
+
+                     </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

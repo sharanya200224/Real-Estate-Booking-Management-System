@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="card card-body">
+               {% if registered %}
+                    <h1>registreation is successful please wait admins action</h1>
+                    <p>please prooced to <a href="{%  url 'login' %}">login</a></p>
+                {% else %}     
+                <h1 style="text-align: center;">Registration  Form</h1>
+                <form enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form3.username | as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{form3.email | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form4.phone | as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{form4.address | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form4.lic_no | as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{form4.lic_img | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form4.photo | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col=md-12">
+                            {{ form3.password | as_crispy_field }}
+                        </div>
+                    </div>
+                    <!-- {{ form2.captcha }} -->
+                    <input type="submit" value="Registration" class="btn btn-success">
+                </form>
+                {% endif %}
+            </div>
+        </div> 
+    </div>
+    {% endblock %}
+    </body>
+</html>

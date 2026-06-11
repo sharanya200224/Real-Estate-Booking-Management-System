@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card p-4 shadow">
+
+        <h2 class="mb-4">Book Property</h2>
+
+        <h5>Property Name : {{ property.name }}</h5>
+        <h5>Owner Name : {{ property.owner_name }}</h5>
+        <h5>Realtor Name : {{ property.user }}</h5>
+
+        <hr>
+<div class="d-flex gap-3">
+
+            <button class="btn btn-success mb-3"
+                    onclick="showEMI()">Book With EMI</button>
+            <a href="{% url 'bookadvance' property.id %}"><button class="btn btn-warning mb-3">Book Advance</button></a>
+
+        </div>
+
+        <div id="emiDiv" style="display:none;">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <input type="hidden"
+                       name="booking_type"
+                       value="EMI">
+
+                <div class="mb-3">
+
+                    <label>Property Price</label>
+
+                    <input type="text"
+                           class="form-control"
+                           value="{{ property.price }}"
+                           readonly>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Loan Amount</label>
+
+                    <input type="number"
+                           name="loan_amount"
+                           id="loan_amount"
+                           class="form-control"
+                           required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>Total Tenure</label>
+
+                    <select name="tenure"
+                            class="form-control">
+
+                        <option value="1">1 Year - 16%</option>
+                        <option value="2">2 Years - 15%</option>
+                        <option value="5">5 Years - 13%</option>
+                        <option value="10">10 Years - 11%</option>
+
+                    </select>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Calculate EMI
+                </button>
+
+            </form>
+
+        </div>
+
+        {% if error %}
+
+            <div class="alert alert-danger mt-3">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+        {% if emi %}
+
+            <div class="alert alert-success mt-3">
+
+                <h4>Monthly EMI : ₹ {{ emi|floatformat:2 }}</h4>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<script>
+
+function showEMI(){
+
+    document.getElementById("emiDiv").style.display = "block";
+
+}
+
+</script>
+
+{% endblock %}

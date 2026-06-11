@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+
+    <div class="jumbotron">
+
+        <form method="GET" action="{% url 'search' %}">
+            <input type="text"
+                   name="area"
+                   style="width:400px;"
+                   class="form-control d-inline">
+
+            <button type="submit"
+                    class="btn btn-success">
+                <i class="bi bi-search"></i> Search
+            </button>
+        </form>
+
+        <br>
+
+        <h1>Your Journey To New Home Starts Here...!</h1>
+
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/031/341/762/small_2x/beautiful-modern-house-exterior-with-carport-modern-residential-district-and-minimalist-building-concept-by-ai-generated-free-photo.jpg"
+             style="height:300px;width:100%;object-fit:cover;"
+             alt="Home Banner">
+
+        <hr>
+
+        <h1>Top Properties</h1>
+
+        <div class="row">
+
+            {% for i in properties|slice:':5' %}
+
+            <div class="col-md-2">
+
+                <div class="card h-100 shadow">
+
+                    {% if i.property_image %}
+                    <a href="{% url 'property_details' i.id %}">
+                        <img src="{{ i.property_image.url }}"
+                             alt=""
+                             class="card-img-top"
+                             style="height:200px;object-fit:cover;">
+                    </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+            <div class="col-md-2 d-flex align-items-center">
+
+                <a href="{% url 'allproperties' %}">
+                    <button class="btn btn-primary">
+                        View All
+                    </button>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if not is_realtor %}
+
+    <hr>
+
+    <h1>Top Realtors</h1>
+
+    <div class="row">
+
+        {% for i in realtor_property %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card h-100 shadow">
+
+                {% if i.photo %}
+
+                <img src="{{ i.photo.url }}"
+                     alt=""
+                     class="card-img-top"
+                     style="height:250px;object-fit:cover;">
+
+                {% else %}
+
+                <img src="{% static 'images/avthar.png' %}"
+                     alt=""
+                     class="card-img-top"
+                     style="height:250px;object-fit:cover;">
+
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h4>
+
+                        <a href="{% url 'realtordetail' %}">
+                            {{ i.user.username }}
+                        </a>
+
+                    </h4>
+
+                    <p>
+                        <strong>Email:</strong>
+                        {{ i.user.email }}
+                    </p>
+
+                    <p>
+                        <strong>Address:</strong>
+                        {{ i.address }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+        {% if submited %}
+            <h1>tank you for enquiry our team will get back you soon</h1>
+        {% else %}
+        <div class="container">
+        <form action="" method="POST">
+        
+                {% csrf_token %}
+                {{ enquiry.as_p }}
+                <button type="submit">Enquiry</button>
+    </form>
+    {% endif %}
+</div>
+
+    
+{% endblock %}

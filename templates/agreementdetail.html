@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg p-5 position-relative overflow-hidden">
+
+        <!-- Watermark Image -->
+        <div class="watermark">
+
+            <img src="{% static 'images/house.jpg' %}" alt="Watermark">
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-area">
+
+            <div class="text-center mb-4">
+
+                <h1 class="fw-bold text-uppercase">
+                    Property Agreement
+                </h1>
+
+                <hr>
+
+                <p class="lead">
+                    Legal Agreement Between First Party and Second Party
+                </p>
+
+            </div>
+
+            <!-- Property Details -->
+
+            <h3 class="text-primary mb-3">
+                Property Details
+            </h3>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Property Name</th>
+                    <td>{{ agreement.property_detail.name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Owner Name</th>
+                    <td>{{ agreement.first_party_name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Property Area</th>
+                    <td>{{ agreement.property_detail.area }}</td>
+                </tr>
+
+                <tr>
+                    <th>Property Price</th>
+                    <td>₹ {{ agreement.property_detail.price }}</td>
+                </tr>
+
+                <tr>
+                    <th>Stamp Paper Value</th>
+                    <td>₹ {{ agreement.stamp_papper_price }}</td>
+                </tr>
+
+            </table>
+
+            <br>
+
+            <!-- First Party -->
+
+            <h3 class="text-primary mb-3">
+                First Party Details
+            </h3>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Name</th>
+                    <td>{{ agreement.first_party_name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ agreement.owner_phone }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>{{ agreement.email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Address</th>
+                    <td>{{ agreement.address }}</td>
+                </tr>
+
+            </table>
+
+            <br>
+
+            <!-- Second Party -->
+
+            <h3 class="text-success mb-3">
+                Second Party Details
+            </h3>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>Name</th>
+                    <td>{{ agreement.secondary_party_name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ agreement.secondary_phone }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>{{ agreement.secondart_email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Address</th>
+                    <td>{{ agreement.secondary_address }}</td>
+                </tr>
+
+                <tr>
+                    <th>Advance Amount Paid</th>
+                    <td>₹ {{ agreement.advance_amount }}</td>
+                </tr>
+
+            </table>
+
+            <br>
+
+            <!-- Agreement Text -->
+
+            <div class="border border-dark rounded p-4 bg-white bg-opacity-75">
+
+                <h3 class="text-center mb-4">
+                    AGREEMENT DECLARATION
+                </h3>
+
+                <p style="text-align:justify; line-height:35px; font-size:18px;">
+
+                    This Agreement certifies that the property
+                    <strong>{{ agreement.property_detail.name }}</strong>,
+                    situated at
+                    <strong>{{ agreement.property_detail.area }}</strong>,
+                    legally belongs to
+                    <strong>{{ agreement.first_party_name }}</strong>
+                    (First Party).
+
+                    The First Party hereby agrees to transfer, rent, lease,
+                    or permit occupation of the above property to
+                    <strong>{{ agreement.secondary_party_name }}</strong>
+                    (Second Party).
+
+                    The Second Party has paid an advance amount of
+                    <strong>₹ {{ agreement.advance_amount }}</strong>
+                    towards the property transaction.
+
+                    Both parties mutually agree to all terms and conditions
+                    mentioned in this agreement and acknowledge that the
+                    information furnished above is true and correct to the
+                    best of their knowledge.
+
+                    This agreement shall remain valid according to the
+                    applicable laws and regulations.
+
+                </p>
+
+            </div>
+
+            <br><br>
+
+            <!-- Signatures -->
+
+            <div class="row text-center">
+
+                <div class="col-md-6">
+
+                    <br><br><br>
+
+                    __________________________
+
+                    <br>
+
+                    <strong>
+                        First Party Signature
+                    </strong>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <br><br><br>
+
+                    __________________________
+
+                    <br>
+
+                    <strong>
+                        Second Party Signature
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <br><br>
+
+            <!-- Print Button -->
+
+            <div class="text-center">
+
+                <button onclick="window.print()"
+                        class="btn btn-primary btn-lg">
+
+                    Print Agreement
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+.watermark{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:0;
+}
+
+.watermark img{
+    width:850px;
+    opacity:0.07;
+}
+
+.content-area{
+    position:relative;
+    z-index:1;
+}
+
+.table th,
+.table td{
+    background:rgba(255,255,255,0.65) !important;
+}
+
+@media print{
+
+    .btn{
+        display:none;
+    }
+
+    .watermark img{
+        width:1000px;
+        opacity:0.08;
+    }
+
+}
+
+</style>
+
+{% endblock %}

@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="jumbotron">
+
+        {% if is_realtor %}
+
+        <h1>Realtor Profile</h1>
+
+        <h2>{{ realtor.user.username }}</h2>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <p><strong>Email:</strong> {{ realtor.user.email }}</p>
+
+                <p><strong>Phone:</strong> {{ realtor.phone }}</p>
+
+                <p><strong>Address:</strong> {{ realtor.address }}</p>
+
+                <p><strong>License Number:</strong> {{ realtor.lic_no }}</p>
+
+                <p>
+                    <strong>Approved:</strong>
+
+                    {% if realtor.is_approved %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </p>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <h5>Photo</h5>
+
+                {% if realtor.photo %}
+                    <img src="{{ realtor.photo.url }}"
+                         width="250"
+                         height="250">
+                {% endif %}
+
+                <br><br>
+
+                <h5>License Image</h5>
+
+                {% if realtor.lic_img %}
+                    <img src="{{ realtor.lic_img.url }}"
+                         width="250"
+                         height="250">
+                {% endif %}
+
+            </div>
+            
+            <a class="btn btn-primary btn-sm"
+                   href="{% url 'update' %}">
+                    Update Profile
+            </a>
+
+
+        </div>
+        <br>
+
+<h3>My Properties</h3>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>Sl No</th>
+            <th>Property</th>
+            <th>Owner Name</th>
+            <th>Property Price</th>
+            <th>Realtor Charge</th>
+            <th>Agreement</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for p in properties %}
+
+        <tr>
+
+            <td>{{ forloop.counter }}</td>
+
+            <td>{{ p.name }}</td>
+
+            <td>{{ p.owner_name }}</td>
+
+            <td>₹{{ p.price }}</td>
+
+            <td>
+                ₹{% widthratio p.price 100 1.5 %}
+            </td>
+
+            <td>
+                <a href="{% url 'agreement' p.id %}">
+                    <i class="bi bi-file-earmark-pdf-fill fs-4 text-danger"></i>
+                </a>
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="6" class="text-center">
+                No Properties Added
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+        {% else %}
+
+        <h1>User Profile</h1>
+
+        <h2>{{ user.username }}</h2>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Phone:</strong> {{ user.userdata.phone }}</p>
+                <p><strong>House No:</strong> {{ user.userdata.house_no }}</p>
+                <p><strong>Street:</strong> {{ user.userdata.street }}</p>
+                <p><strong>Landmark:</strong> {{ user.userdata.landmark }}</p>
+                <p><strong>City:</strong> {{ user.userdata.city }}</p>
+                <p><strong>State:</strong> {{ user.userdata.state }}</p>
+                <p><strong>Zipcode:</strong> {{ user.userdata.zipcode }}</p>
+
+                <a class="btn btn-primary"
+                   href="{% url 'update' %}">
+                    Update Profile
+                </a>
+
+            </div>
+
+            <div class="col-md-6">
+
+                {% if user.userdata.userpic %}
+                    <img src="{{ user.userdata.userpic.url }}"
+                         width="300"
+                         height="300">
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h2>Booked Visits</h2>
+
+        <table class="table table-bordered">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Property Name</th>
+                    <th>Area</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for i in booking %}
+                <tr>
+                    <td>{{ i.area.name }}</td>
+                    <td>{{ i.area.area }}</td>
+                    <td>₹{{ i.area.price }}</td>
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.time }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No Visits Booked</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <hr>
+
+        <h2>Latest Booked Property</h2>
+
+        <table class="table table-bordered">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Property Name</th>
+                    <th>Area</th>
+                    <th>Rent</th>
+                    <th>Advance</th>
+                    <th>Token</th>
+                    <th>Booking Date</th>
+                    <th>Booking Time</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for i in latestbooking %}
+                <tr>
+                    <td>{{ i.property_name }}</td>
+                    <td>{{ i.area }}</td>
+                    <td>₹{{ i.rent }}</td>
+                    <td>₹{{ i.advance }}</td>
+                    <td>₹{{ i.token }}</td>
+                    <td>{{ i.booking_date }}</td>
+                    <td>{{ i.booking_time }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No Property Booked Yet</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

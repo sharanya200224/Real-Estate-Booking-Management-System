@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+<h2 class="mb-4">Welcome To Realtors Page</h2>
+
+    <div class="d-flex justify-content-between mb-4">
+
+        <h5>
+            Realtor Name : {{ realtors.user }}
+        </h5>
+
+        <div class="text-end">
+
+            <h5>
+                License No : {{ realtors.lic_no }}
+            </h5>
+
+            <a href="{% url 'add_property' %}"><button class="btn btn-primary mt-2">
+                Add <i class="bi bi-plus-circle"></i>
+            </button></a>
+
+        </div>
+
+    </div>
+
+    <h3 class="mb-3">List of Properties</h3>
+
+    <table class="table  table-hover text-center">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>SI_No</th>
+                <th>Property Name</th>
+                <th>Owner Name</th>
+                <th>Area</th>
+                <th>City</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Edit</th>
+                <th>Status</th>
+            </tr>
+ 
+        </thead>
+
+        <tbody>
+
+            {% for i in details %}
+
+            <tr>
+
+                <td>{{ forloop.counter }}</td>
+
+                <td>{{ i.name }}</td>
+
+                <td>{{ i.owner_name }}</td>
+
+                <td>{{ i.area }}</td>
+
+                <td>{{ i.city }}</td>
+
+                <td>₹ {{ i.price }}</td>
+
+                <td>{{ i.property_type }}</td>
+
+                <td>
+                    <a href="{% url 'property_edit' i.id %}"><button class="btn  btn-sm" >
+                        <i class="bi bi-pencil-square"></i>
+                    </button></a>
+                </td>
+                <td>{{ i.verdict }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="?pg=1"><<</a>
+    </li>
+    {% if details.has_previous %}
+        <li class="page-item"><a class="page-link" href="?pg={{ details.previous_page_number }}">{{ details.previous_page_number }}</a></li>
+    {% endif %}
+    <li class="page-item"><a class="page-link" href="?pg={{ details.number}}">{{ details.number}}</a></li>
+    {% if details.has_next %}
+    <li class="page-item"><a class="page-link" href="?pg={{ details.next_page_number}}">{{ details.next_page_number}}</a></li>
+    {% endif %}
+    <li class="page-item">
+      <a class="page-link" href="?pg={{details.paginator.num_pages}}">>></a>
+    </li>
+  </ul>
+</nav>
+
+</div>
+
+</div>
+{% endblock %}

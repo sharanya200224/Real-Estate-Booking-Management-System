@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+        <h1>Add realtors details </h1>
+        <div class="container">
+                <div class="jumbotron">
+                        <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <a href="{% url 'dashboard'  %}"><button type="submit">save</button></a>
+                        </form>
+                </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="mb-4">List of Properties</h1>
+
+        <a href="{% url 'allproperties' %}?types=all"><button class="btn btn-primary mb-3">ALL</button></a>
+        <a href="{% url 'allproperties' %}?types=rental"><button class="btn btn-primary mb-3">Rental</button></a>
+        <a href="{% url 'allproperties' %}?types=buy"><button class="btn btn-primary mb-3">Buy</button></a>
+
+         
+        <div class="row">
+            {% for i in properties %}
+            <div class="col-md-4 mb-4">
+                <div class="card-h-100 shadow">
+                    {% if i.property_image %}
+                    <a href="{% url 'property_details' i.id %} ">
+                        <img src="{{ i.property_image.url }}" alt="" class="card-img-top" style="height:200px;object-fit:cover;">
+                    </a>
+                    
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{i.name}}</h5>
+
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"> ₹ {{i.price}}</h5>
+
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{i.city}}</h5>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+        {% if detail.property_image %}
+            <img src="{{ detail.property_image.url }}"
+                 class="card-img-top"
+                 style="height:400px; object-fit:cover;">
+        {% endif %}
+
+        <div class="card-body p-5">
+
+            <h1 class="text-primary fw-bold mb-4">
+                {{ detail.name }}
+            </h1>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <h5>🏠 Property Type</h5>
+                    <p>{{ detail.property_type }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>💰 Price</h5>
+                    <p>₹ {{ detail.price }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>🏢 Floors</h5>
+                    <p>{{ detail.floors }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>📌 Category</h5>
+                    <p>{{ detail.category }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>📅 Property Age</h5>
+                    <p>{{ detail.age }} years</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>📐 Area</h5>
+                    <p>{{ detail.area }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>🌆 City</h5>
+                    <p>{{ detail.city }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>🛏 Rooms</h5>
+                    <p>{{ detail.no_of_rooms }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>🛁 Bathrooms</h5>
+                    <p>{{ detail.no_of_bathrooms }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>🌅 Balcony</h5>
+
+                    {% if detail.balcony %}
+                        <span class="badge bg-success p-2">Available</span>
+                    {% else %}
+                        <span class="badge bg-danger p-2">Not Available</span>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>🚿 Attached Bathroom</h5>
+
+                    {% if detail.attached_bathroom %}
+                        <span class="badge bg-success p-2">Yes</span>
+                    {% else %}
+                        <span class="badge bg-danger p-2">No</span>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>👤 Owner Name</h5>
+                    <p>{{ detail.owner_name }}</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5>🏡 Realtor Name</h5>
+                    <p>{{ detail.realtorname }}</p>
+                </div>
+
+            </div>
+            {% if detail.property_type  == 'BUY' %}
+                <a href="{% url 'calculator' detail.id %}" ><button class="btn btn-primary">book property</button></a>
+            {% elif detail.property_type == 'RENTAL' %}
+                <a href="{% url 'visit' detail.id %}"><button class="btn btn-success">visit</button></a>
+            {% endif %}
+            
+    
+        </div>
+
+    </div>
+    <hr>
+        <ul class="nav nav-tabs mt-4">
+            <li class="nav-item">
+                <button class="btn btn-primary text=white px-4 me-4"
+                        data-bs-toggle="tab"
+                        data-bs-target="#rooms">
+                    Rooms
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#kitchen">
+                    Kitchen
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#bathroom">
+                    Bathroom
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#living">
+                    Living Area
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#balcony">
+                    Balcony
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content mt-4">
+            <!-- ROOMS -->
+            <div class="tab-pane fade show active" id="rooms">
+                <div class="row">
+                    {% for r in rooms %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <img src="{{ r.room_pics.url }}"
+                                class="card-img-top"
+                                style="height:200px; object-fit:cover;">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- KITCHEN -->
+            <div class="tab-pane fade" id="kitchen">
+                <div class="row">
+                    {% for k in kitchens %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            {% if k.kitchen_pics %}
+                            <img src="{{ k.kitchen_pics.url }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- BATHROOM -->
+            <div class="tab-pane fade" id="bathroom">
+                <div class="row">
+                    {% for b in bathrooms %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            {% if b.bath_pics %}
+                            <img src="{{ b.bath_pics.url }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- LIVING AREA -->
+            <div class="tab-pane fade" id="living">
+                <div class="row">
+                    {% for l in livingareas %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            {% if l.living_pics %}
+                            <img src="{{ l.living_pics.url }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- BALCONY -->
+            <div class="tab-pane fade" id="balcony">
+                <div class="row">
+                    {% for b in balcony %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            {% if b.balcony_pics %}
+                            <img src="{{ b.balcony_pics.url }}">
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    
+
+
+</div>
+
+{% endblock %}

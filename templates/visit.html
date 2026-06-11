@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <div class="card shadow-lg p-4 rounded-4">
+                {% if submitted %}
+                <div class="alert alert-success">your visit has been booked</div>
+                {% endif %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label for="">Proerty name</label>
+                        <input type="text" value="{{detail.property_type}}" name="visit_date" class="form-control" readonly>
+                    </div>
+                    <div>
+                        <label for="">Area</label>
+                        <input type="text" value="{{detail.area}}" name="visit_date" class="form-control" readonly>
+                    </div>
+                    <div>
+                        <label for="">Date</label>
+                        <input type="date" name="visit_date" class="form-control">
+                    </div>
+                    <div>
+                        <label for="">Time</label>
+                        <input type="time" name="visit_time" class="form-control">
+                    </div>
+                
+            </div>
+            <div class="row mt-3">
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-car-front-fill text-success"></i>
+            Parking
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-camera-video-fill text-danger"></i>
+                     CCTV Camera 24×7
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-shield-check text-primary"></i>
+                    Security
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-badge-ad-fill text-warning"></i>
+                    Lift
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-droplet-half text-info"></i>
+                    Water Facility
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-lightning-charge-fill text-warning"></i>
+                    Electricity
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-tools text-secondary"></i>
+                    Maintenance : ₹1000
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-water text-info"></i>
+                    Water Charge : ₹500
+                </p>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <p>
+                    <i class="bi bi-cash-stack text-success"></i>
+                    Price : ₹{{ detail.price }}
+                </p>
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-secondary">Book a Visit</button>
+        </form>
+    </div>
+    
+        
+    </div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="text-center mb-4">
+            Property Advance Booking
+        </h2>
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>Property Name</th>
+                <td>{{ property_detail.name }}</td>
+            </tr>
+
+            <tr>
+                <th>Area</th>
+                <td>{{ property_detail.area }}</td>
+            </tr>
+
+            <tr>
+                <th>Owner Name</th>
+                <td>{{ property_detail.owner_name }}</td>
+            </tr>
+
+            <tr>
+                <th>Property Type</th>
+                <td>{{ property_detail.property_type }}</td>
+            </tr>
+
+            <tr>
+                <th>Age</th>
+                <td>{{ property_detail.age }}</td>
+            </tr>
+
+            <tr>
+                <th>Property Price</th>
+                <td>₹{{ property_detail.price }}</td>
+            </tr>
+
+            <tr>
+                <th>Realtor Charge (1.5%)</th>
+                <td>₹{{ realtor_charge }}</td>
+            </tr>
+
+            <tr>
+                <th>Advance (10%)</th>
+                <td>₹{{ advance }}</td>
+            </tr>
+
+        </table>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">
+                    Book Property
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
